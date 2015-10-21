@@ -1,0 +1,18 @@
+{
+  "name": "yoka",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "hapi": "^11.0.1",
+    "jade": "^1.11.0",
+    "mysql": "^2.9.0",
+    "sequelize": "^3.12.2",
+    "vision": "^3.0.0"
+  }
+}

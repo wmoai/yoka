@@ -5,9 +5,9 @@ html
     meta(charset="UTF-8")
   body
     div あたなは#{field.name}にいる
-    ul
-      for move in moves
-        li
-          a(href="/move/#{move.id}")= move.name
+    for move in moves
+      form(method="post", action="/move")
+        input(type="hidden", name="id", value="#{move.id}")
+        input(type="submit", value="#{move.name}")
       
 

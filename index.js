@@ -93,7 +93,16 @@ server.route([
       handler: route.field.index,
       auth: "session"
     }
+  },
+  {
+    method: "POST",
+    path: "/move",
+    config: {
+      handler: route.field.move,
+      auth: "session"
+    }
   }
+
 ])
 
 server.start(function() {

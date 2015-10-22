@@ -14,60 +14,89 @@ server.register(require('vision'), function (err) {
   })
 })
 
+var route = require('./route/');
+var model = require('./model/');
+
+server.register(require('hapi-auth-cookie'), function (err) {
+  server.auth.strategy('session', 'cookie', {
+    password: 'secret',
+    cookie: 'sid-example',
+    redirectTo: '/',
+    isSecure: false
+  });
+});
+
+
+server.route([
+  {
+    method: "GET",
+    path: "/",
+    config: {
+      handler: route.index.index,
+      auth: {
+        mode: 'try',
+        strategy: 'session'
+      },
+      plugins: {
+        'hapi-auth-cookie': {
+          redirectTo: false
+        }
+      }
+    }
+  },
+  {
+    method: "POST",
+    path: "/",
+    config: {
+      handler: route.index.login,
+      auth: {
+        mode: 'try',
+        strategy: 'session'
+      },
+      plugins: {
+        'hapi-auth-cookie': {
+          redirectTo: false
+        }
+      }
+    }
+  },
+  {
+    method: ["GET", "POST"],
+    path: "/signup",
+    config: {
+      handler: route.index.signup,
+      auth: {
+        mode: 'try',
+        strategy: 'session'
+      },
+      plugins: {
+        'hapi-auth-cookie': {
+          redirectTo: false
+        }
+      }
+    }
+  },
+  {
+    method: "GET",
+    path: "/logout",
+    config: {
+      handler: route.index.logout,
+      auth: 'session'
+    }
+  },
+
+
+  {
+    method: "GET",
+    path: "/field",
+    config: {
+      handler: route.field.index,
+      auth: "session"
+    }
+  }
+])
+
 server.start(function() {
   console.log("Server running at: ", server.info.uri)
 })
-
-
-var Sequelize = require('sequelize')
-var sequelize = new Sequelize('yoka', 'user', 'password')
-var User = sequelize.define('User', {
-  username: Sequelize.STRING,
-  birthday: Sequelize.DATE
-});
-sequelize.sync().then(function() {
-  return User.create({
-    username: 'janedoe',
-    birthday: new Date(1980, 6, 20)
-  });
-}).then(function(jane) {
-  console.log(jane.get({
-    plain: true
-  }))
-});
-
-server.route({
-  method: "GET",
-  path: "/",
-  handler: function(req, res) {
-    res.view('index')
-  }
-})
-
-server.route({
-  method: "GET",
-  path: "/signup",
-  handler: function(req, res) {
-    res.view('signup')
-  }
-})
-
-server.route({
-  method: "POST",
-  path: "/signup",
-  handler: function(req, res) {
-    console.log(req.payload)
-    res.view('signup', {hoge: "fuga"})
-  }
-})
-
-
-server.route({
-  method: "GET",
-  path: "/field",
-  handler: function(req, res) {
-    res('field : ' + req.params.name)
-  }
-})
-
 

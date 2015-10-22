@@ -1,23 +1,21 @@
 module.exports = function(Sequelize, sequelize){
-  return sequelize.define('User', {
+  return sequelize.define('Field', {
     id: {
       type: Sequelize.INTEGER,
-      unique: true,
-      allowNull: false
+      primaryKey: true,
+      autoIncrement: true
     },
     name: {
       type: Sequelize.STRING,
       unique: true,
       allowNull: false
     },
-    password_hash: {
-      type: Sequelize.TEXT,
-      allowNull: false
-    },
-    solt_hash: {
+    description: {
       type: Sequelize.TEXT,
       allowNull: false
     }
+  }, {
+    timestamps: false,
   })
 };
 

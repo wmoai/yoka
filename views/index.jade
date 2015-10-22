@@ -3,14 +3,16 @@ html
   head
     title yoka
   body
+    if message
+      div(style="color:red")= message
     div
       a(href="signup") signup
     form(method="post")
       ul(style="list-style:none;margin:0;padding:0;")
         li
-          input(placeholder="ID")
+          input(name="name", placeholder="name", value=name)
         li
-          input(placeholder="password", type="password")
+          input(name="password", placeholder="password", type="password")
         li
           input(type="submit", value="LOGIN")
 

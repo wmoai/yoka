@@ -1,0 +1,13 @@
+doctype
+html
+  head
+    title yoka
+    meta(charset="UTF-8")
+  body
+    div あたなは#{field.name}にいる
+    ul
+      for move in moves
+        li
+          a(href="/move/#{move.id}")= move.name
+      
+

@@ -4,6 +4,8 @@ server.connection({
   port: "3000"
 })
 
+// testtest
+
 server.register(require('vision'), function (err) {
   server.views({
     engines: { jade: require('jade') },
